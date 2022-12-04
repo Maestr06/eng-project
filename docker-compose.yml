@@ -1,0 +1,14 @@
+version: "3.8"  #precyzujemy jakiej wersji docker-compose użyć
+services:  # definiujemy różne serwisy jakie chcemy razem stworzyć
+  app:  # nazywamy serwis aplikacji app
+    build: .   # . oznacza że pliki po zbudowaniu trafią do folderu gdzie
+               # jest docker-compose
+    volumes:
+      - ./main:/main  # w ten sposób kopiujemy pliki do obecnego folderu
+                   # z katalogu django w kontenerze gdzie działa app
+    ports:
+      - 8000:8000   # wiążemy port kontenera z portem komputera
+    image: app:django   # nadajemy nazwę obrazowi dockera po zbudowaniu
+    container_name: django_container  # nazwa kontenera
+    command: python manage.py runserver 0.0.0.0:8000  # komenda jaka ma 
+    # ruszyć po stworzeniu kontenera
