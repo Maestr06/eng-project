@@ -120,7 +120,7 @@ LOGIN_REDIRECT_URL = 'dashboard'
 
 LOGOUT_URL = 'logout'
 
-TIME_ZONE = 'Europe-Warsaw'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 
