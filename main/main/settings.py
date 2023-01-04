@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,10 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
@@ -114,7 +120,7 @@ LOGIN_REDIRECT_URL = 'dashboard'
 
 LOGOUT_URL = 'logout'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe-Warsaw'
 
 USE_I18N = True
 
