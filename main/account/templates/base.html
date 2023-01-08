@@ -11,6 +11,11 @@
     <span class="logo">Bookmarks</span>
     {% if request.user.is_authenticated %}
       <ul class="menu">
+      {% if request.user.is_staff %}
+        <li {% if section == "admin" %} class="selected"{% endif %}>
+          <a href="../../admin">Admin panel</a>
+        </li>
+      {% endif %}
         <li {% if section == "dashboard" %} class="selected"{% endif %}>
           <a href="{% url 'dashboard' %}">My dashboard</a>
         </li>
