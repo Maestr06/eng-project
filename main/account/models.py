@@ -24,6 +24,9 @@ class JobOffer(models.Model):
     offer_skills = models.ManyToManyField('JobSkill')
     offer_description = models.CharField(max_length=250, default='Opis oferty pracy')
     offer_post_time = models.DateTimeField(auto_now_add=True)
+    offer_compensation = models.PositiveIntegerField(default=0)
+    offer_range_min = models.PositiveIntegerField(default=0)
+    offer_range_max = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.offer_title
