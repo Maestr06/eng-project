@@ -19,6 +19,8 @@ class JobSkill(models.Model):
         return self.skill_title
 
 class JobOffer(models.Model):
+    INTERN, JUNIOR, MID, SENIOR = 0, 1, 2, 3
+    LEVELS = [(INTERN, 'Intern'), (JUNIOR, 'Junior'), (MID, 'Mid'), (SENIOR, 'Senior')]
     offer_title = models.CharField(max_length=100, default='Oferta pracy')
     offer_tech = models.ForeignKey('JobTechnology', on_delete=models.CASCADE)
     offer_skills = models.ManyToManyField('JobSkill')
@@ -27,6 +29,7 @@ class JobOffer(models.Model):
     offer_compensation = models.PositiveIntegerField(default=0)
     offer_range_min = models.PositiveIntegerField(default=0)
     offer_range_max = models.PositiveIntegerField(default=0)
+    offer_seniority = models.CharField(choices=LEVELS, max_length=6, default=JUNIOR)
 
     def __str__(self):
         return self.offer_title
