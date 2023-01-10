@@ -19,7 +19,7 @@ class JobSkill(models.Model):
         return self.skill_title
 
 class JobOffer(models.Model):
-    INTERN, JUNIOR, MID, SENIOR = 0, 1, 2, 3
+    INTERN, JUNIOR, MID, SENIOR = '0', '1', '2', '3'
     LEVELS = [(INTERN, 'Intern'), (JUNIOR, 'Junior'), (MID, 'Mid'), (SENIOR, 'Senior')]
     offer_title = models.CharField(max_length=100, default='Oferta pracy')
     offer_tech = models.ForeignKey('JobTechnology', on_delete=models.CASCADE)
