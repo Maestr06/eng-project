@@ -112,7 +112,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'pl-pl'
+LANGUAGE_CODE = 'en'
 
 LOGIN_URL = 'login'
 
