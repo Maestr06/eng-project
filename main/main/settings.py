@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -108,6 +109,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+GRAPH_MODEL = {
+    'all_applications': True,
+    'group_models': True,
+}
 
 
 # Internationalization

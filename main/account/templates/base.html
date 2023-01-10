@@ -13,7 +13,7 @@
       <ul class="menu">
       {% if request.user.is_staff %}
         <li {% if section == "admin" %} class="selected"{% endif %}>
-          <a href="../../admin">Admin panel</a>
+          <a href="{% url 'admin:index' %}">Admin panel</a>
         </li>
       {% endif %}
         <li {% if section == "dashboard" %} class="selected"{% endif %}>
