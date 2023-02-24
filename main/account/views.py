@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views import View
+from django.views.generic.detail import DetailView
+from .models import JobOffer
 from .forms import OfferForm, UserRegistrationForm
 
 @login_required
@@ -34,7 +36,7 @@ class UserRegistrationView(View):
             return render(request, 'account/register.html', {'user_form': user_form})
 
 
-class AddOfferView(View):
+class OfferAddView(View):
 
     def get(self, request):
         offer_form = OfferForm()
@@ -47,3 +49,8 @@ class AddOfferView(View):
             new_offer.save()
             return render(request, 'account/dashboard.html', {'new_offer': new_offer})
             
+class OfferDetailView(DetailView):
+    pass
+
+    def get(self, request, id):
+        pass
