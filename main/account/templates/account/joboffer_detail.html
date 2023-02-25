@@ -13,11 +13,15 @@
         <strong><li>{{ skill }}</li></strong>
     {% endfor %}
     </ul>
+    <h4>Skills:</h4>
     <textarea>{{ object.offer_description }}</textarea>
-    
+    <h4>Compensation:</h4>
     <strong><p>{{ object.offer_compensation }}</p></strong>
+    <h4>Minimum compensation:</h4>
     <strong><p>{{ object.offer_range_min }}</p></strong>
+    <h4>Maximum compensation:</h4>
     <strong><p>{{ object.offer_range_max }}</p></strong>
+    <h4>Offer posted:</h4>
     <strong><p>{{ object.offer_post_time }}</p></strong>
 </div>
 {% endblock %}
