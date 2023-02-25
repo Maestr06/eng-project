@@ -1,10 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.views.generic.detail import DetailView
-from .models import JobOffer
+from .models import JobOffer, JobSkill, JobTechnology
 from .forms import OfferForm, UserRegistrationForm
 
 @login_required
@@ -50,7 +50,12 @@ class OfferAddView(View):
             return render(request, 'account/dashboard.html', {'new_offer': new_offer})
             
 class OfferDetailView(DetailView):
-    pass
 
-    def get(self, request, id):
-        pass
+    model = JobOffer
+
+    # def get(self, request, offer_id):
+    #     try:
+    #         offer = JobOffer.objects.get(pk=offer_id)
+    #     except JobOffer.DoesNotExist:
+    #         raise Http404("Offer with this id does not exist")
+    #     return render(request, 'account/offer_detail.html', {'offer': offer})

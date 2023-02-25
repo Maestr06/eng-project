@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.offer_title }}{% endblock %}
+{% block content %}
+<div style="display: flex; flex-direction: column;">
+    <h2>{{ object.offer_title }}</h2>
+    <h4>Main tech:</h4>
+    <strong><p>{{ object.offer_tech }}</p></strong>
+    <h4>Seniority:</h4>
+    <strong><p>{{ object.get_offer_seniority_display }}</p></strong>
+    <h4>Skills:</h4>
+    <ul>
+    {% for skill in object.offer_skills.all %}
+        <strong><li>{{ skill }}</li></strong>
+    {% endfor %}
+    </ul>
+    <textarea>{{ object.offer_description }}</textarea>
+    
+    <strong><p>{{ object.offer_compensation }}</p></strong>
+    <strong><p>{{ object.offer_range_min }}</p></strong>
+    <strong><p>{{ object.offer_range_max }}</p></strong>
+    <strong><p>{{ object.offer_post_time }}</p></strong>
+</div>
+{% endblock %}
