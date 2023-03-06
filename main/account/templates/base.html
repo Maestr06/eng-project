@@ -8,7 +8,7 @@
 </head>
 <body>
   <div id="header">
-    <span class="logo">ByteJobs</span>
+    <span class="logo"><a href="{% url 'dashboard' %}">ByteJobs</a></span>
     {% if request.user.is_authenticated %}
       <ul class="menu">
       {% if request.user.is_staff %}
@@ -20,10 +20,10 @@
           <a href="{% url 'dashboard' %}">My dashboard</a>
         </li>
         <li {% if section == "offers" %} class="selected"{% endif %}>
-          <a href="#">Offers</a>
+          <a href="{% url 'offerlist' %}">Offers</a>
         </li>
         <li {% if section == "companies" %} class="selected"{% endif %}>
-          <a href="#">Companies</a>
+          <a href="% url 'companies' %}">Companies</a>
         </li>
       </ul>
     {% endif %}

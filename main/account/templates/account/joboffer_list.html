@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Job offers{% endblock %}
+{% block content %}
+<div>
+    {% for object in object_list %}
+    <div>{{ object.offer_title }}</div>
+    {% endfor %}
+</div>
+{% endblock %}

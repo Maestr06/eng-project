@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from django.views.generic.detail import DetailView
+from django.views.generic import DetailView, ListView
 from .models import JobOffer, JobSkill, JobTechnology
 from .forms import OfferForm, UserRegistrationForm
 
@@ -53,9 +53,7 @@ class OfferDetailView(DetailView):
 
     model = JobOffer
 
-    # def get(self, request, offer_id):
-    #     try:
-    #         offer = JobOffer.objects.get(pk=offer_id)
-    #     except JobOffer.DoesNotExist:
-    #         raise Http404("Offer with this id does not exist")
-    #     return render(request, 'account/offer_detail.html', {'offer': offer})
+
+class OfferListView(ListView):
+    
+    model = JobOffer
