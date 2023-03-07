@@ -9,7 +9,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('', views.dashboard, name='dashboard'),
     path('register/', UserRegistrationView.as_view(), name='register'),
-    path('offer/<int:pk>/', login_required(OfferDetailView.as_view()), name='joboffer_detail'),
-    path('offer/add/', login_required(OfferAddView.as_view()), name='addoffer'),
-    path('offer/list/', OfferListView.as_view(), name='offerlist' )
+    path('offer/<int:pk>/', login_required(OfferDetailView.as_view()), name='offer_detail'),
+    path('offer/add/', login_required(OfferAddView.as_view()), name='offer_add'),
+    path('offer/list/', OfferListView.as_view(), name='offer_list' )
 ]
