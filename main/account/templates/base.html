@@ -9,8 +9,8 @@
 <body>
   <div id="header">
     <span class="logo"><a href="{% url 'dashboard' %}">ByteJobs</a></span>
+    <ul class="menu">
     {% if request.user.is_authenticated %}
-      <ul class="menu">
       {% if request.user.is_staff %}
         <li {% if section == "admin" %} class="selected"{% endif %}>
           <a href="{% url 'admin:index' %}">Admin panel</a>
@@ -19,6 +19,7 @@
         <li {% if section == "dashboard" %} class="selected"{% endif %}>
           <a href="{% url 'dashboard' %}">My dashboard</a>
         </li>
+    {% endif %}
         <li {% if section == "offers" %} class="selected"{% endif %}>
           <a href="{% url 'offerlist' %}">Offers</a>
         </li>
@@ -26,7 +27,7 @@
           <a href="% url 'companies' %}">Companies</a>
         </li>
       </ul>
-    {% endif %}
+    
     <span class="user">
       {% if request.user.is_authenticated %}
         Hello {{ request.user.first_name|default:request.user.username }},
