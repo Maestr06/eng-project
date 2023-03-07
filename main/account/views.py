@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.views.generic import DetailView, ListView
-from .models import JobOffer, JobSkill, JobTechnology
+from .models import Offer, Skill, Technology
 from .forms import OfferForm, UserRegistrationForm
 
 @login_required
@@ -51,9 +51,9 @@ class OfferAddView(View):
             
 class OfferDetailView(DetailView):
 
-    model = JobOffer
+    model = Offer
 
 
 class OfferListView(ListView):
     
-    model = JobOffer
+    model = Offer

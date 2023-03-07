@@ -1,12 +1,12 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from .models import JobOffer
+from .models import Offer
 
 class OfferForm(forms.ModelForm):
 
     class Meta:
-        model = JobOffer
+        model = Offer
         fields = '__all__'
 
 class LoginForm(forms.Form):
