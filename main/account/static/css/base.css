@@ -11,12 +11,12 @@ p {
 }
 
 a {
-    color:#12c064;
+    color:#163548;
     text-decoration:none;
 }
 
 a:hover {
-    color:#00a74f;
+    color:#23415a;
 }
 
 h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
@@ -38,9 +38,9 @@ ol {
 #header {
     padding:10px 100px;
     font-size:14px;
-    background:#12c064;
+    background:#23415a;
     color:#fff;
-    border-bottom:4px solid #1cdf78;
+    border-bottom:4px solid #23415a;
     overflow:auto;
 }
 
@@ -64,7 +64,7 @@ ol {
 }
 
 #header ul.menu li.selected a, #header ul.menu li.selected a:hover {
-    color:#1b6d32;
+    color:#93bbd7;
     font-weight:bold;
 }
 
@@ -82,6 +82,7 @@ ol {
 
 #content {
     padding:30px 100px;
+    background-color: #eeeeee;
 }
 
 /* forms */
@@ -111,7 +112,7 @@ input, textarea {
 }
 input[type=submit], a.button {
     font-weight:bold;
-    background:#12c064;
+    background:#23415a;
     color:#fff;
     padding:10px 20px;
     font-size:14px;
@@ -219,7 +220,7 @@ a.like, a.follow { float:right; margin-top:-8px; }
     width:220px;
     height:300px;
     margin:0 10px 10px 10px;
-    border-top:8px solid #12c064;
+    border-top:8px solid #23415a;
     background:#eee;
 }
 #image-list img { width:220px; height:220px; }
