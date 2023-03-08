@@ -11,7 +11,7 @@ p {
 }
 
 a {
-    color:#163548;
+    color:#000000;
     text-decoration:none;
 }
 
@@ -276,3 +276,12 @@ img.user-detail {
     font-style:italic;
     color:#ccc;
 }
+
+a.button {
+    background-color: #333;
+    border-radius: 5px;
+}
+
+/* .card, .list-group-item {
+    border-radius: 8px!important;
+} */

@@ -20,11 +20,14 @@
           <a href="{% url 'dashboard' %}">My dashboard</a>
         </li>
     {% endif %}
+        <li {% if section == "companies" %} class="selected"{% endif %}>
+          <a href="% url 'companies' %}">Companies</a>
+        </li>
         <li {% if section == "offers" %} class="selected"{% endif %}>
           <a href="{% url 'offer_list' %}">Offers</a>
         </li>
-        <li {% if section == "companies" %} class="selected"{% endif %}>
-          <a href="% url 'companies' %}">Companies</a>
+        <li {% if section == "new_offer" %} class="selected"{% endif %}>
+          <a class="button" href="{% url 'offer_add' %}">CREATE NEW OFFER</a>
         </li>
       </ul>
     

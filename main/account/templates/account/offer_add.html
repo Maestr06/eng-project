@@ -3,9 +3,9 @@
 {% load crispy_forms_tags %}
 {% block title %}Add new job offer{% endblock %}
 {% block content %}
-<form action="{% url 'addoffer' %}" method="post">
+<form action="{% url 'offer_add' %}" method="post">
     {{ form|crispy }}
     {% csrf_token %}
-    <p><input type="submit" value="Create New Offer"></p>
+    <p><input type="submit" value="Create Offer"></p>
 </form>
 {% endblock %}

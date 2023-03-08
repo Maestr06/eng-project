@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views import View
@@ -47,7 +47,7 @@ class OfferAddView(View):
         if offer_form.is_valid():
             new_offer = offer_form.save(commit=False)
             new_offer.save()
-            return render(request, 'account/dashboard.html', {'new_offer': new_offer})
+            return redirect('offer_detail', pk=new_offer.pk)
             
 class OfferDetailView(DetailView):
 
@@ -57,3 +57,9 @@ class OfferDetailView(DetailView):
 class OfferListView(ListView):
     
     model = Offer
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs: any) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context['section'] = 'offers'
+        return context
