@@ -1,8 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+
+class Company(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=100)
+    employee_count = models.PositiveIntegerField(null=True, blank=True)
+    address = models.CharField(max_length=100)
+
 class Technology(models.Model):
-    tech_title = models.CharField(max_length=40, unique=True, primary_key=True)
+    tech_title = models.CharField(max_length=40, unique=True)
 
     class Meta:
         verbose_name_plural = 'Technologies'
@@ -11,7 +20,7 @@ class Technology(models.Model):
         return self.tech_title
 
 class Skill(models.Model):
-    skill_title = models.CharField(max_length=100, unique=True, primary_key=True)
+    skill_title = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.skill_title
