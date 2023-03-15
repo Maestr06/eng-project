@@ -32,20 +32,41 @@ class Skill(models.Model):
         return self.skill_title
 
 class Offer(models.Model):
-    INTERN, JUNIOR, MID, SENIOR = '0', '1', '2', '3'
-    LEVELS = [(INTERN, 'Intern'), (JUNIOR, 'Junior'), (MID, 'Mid'), (SENIOR, 'Senior')]
     offer_title = models.CharField(max_length=100, default='Oferta pracy')
     offer_tech = models.ForeignKey('Technology', on_delete=models.CASCADE)
     offer_skills = models.ManyToManyField('Skill')
     offer_description = models.CharField(max_length=250, default='Opis oferty pracy')
     offer_post_time = models.DateTimeField(auto_now_add=True)
-    offer_compensation = models.PositiveIntegerField(default=0)
     offer_range_min = models.PositiveIntegerField(default=0)
     offer_range_max = models.PositiveIntegerField(default=0)
-    offer_seniority = models.CharField(choices=LEVELS, max_length=6, default=JUNIOR)
+    offer_seniority = models.ForeignKey('Seniority', default=2, on_delete=models.CASCADE)
+    offer_location = models.ForeignKey('Location', default=1, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.offer_title
+    
+class Filter(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tech = models.ForeignKey('Technology', on_delete=models.CASCADE)
+    skills = models.ManyToManyField('Skill')
+    location = models.ForeignKey('Location', on_delete=models.CASCADE)
+    seniority = models.ForeignKey('Seniority', on_delete=models.CASCADE)
+
+class Seniority(models.Model):
+    seniority_name = models.CharField(max_length=6)\
+    
+    class Meta:
+        verbose_name_plural = 'Seniorities'
+
+    def __str__(self):
+        return self.seniority_name
+
+class Location(models.Model):
+    location_name = models.CharField(max_length=40, unique=True)
+
+    def __str__(self):
+        return self.location_name
+    
     
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

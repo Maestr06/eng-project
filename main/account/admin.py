@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Offer, Skill, Technology, Company
+from .models import Offer, Skill, Technology, Company, Filter, Location, Message, Seniority
 
 
-# Define an inline admin descriptor for Employee model
+# Define an inline admin descriptor for Company model
 # which acts a bit like a singleton
 class CompanyInline(admin.StackedInline):
     model = Company
@@ -21,5 +21,9 @@ admin.site.register(Technology)
 admin.site.register(Skill)
 admin.site.register(Offer)
 admin.site.register(Company)
+admin.site.register(Filter)
+admin.site.register(Location)
+admin.site.register(Message)
+admin.site.register(Seniority)
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
