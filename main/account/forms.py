@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Offer, User
+from .models import Offer, User, Profile, Company
 
 class OfferForm(forms.ModelForm):
 
@@ -33,3 +33,18 @@ class UserRegistrationForm(forms.ModelForm):
         if User.objects.filter(email=data).exists():
             raise forms.ValidationError('Email already in use.')
         return data
+    
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['date_of_birth', 'photo']
+
+class CompanyEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Company
+        fields = ['company_name', 'employee_count', 'address', 'logo']

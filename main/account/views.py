@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.views.generic import DetailView, ListView
-from .models import Offer, Skill, Technology
+from .models import Offer, Skill, Technology, Profile
 from .forms import OfferForm, UserRegistrationForm
 
 @login_required
@@ -29,6 +29,8 @@ class UserRegistrationView(View):
                 user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
+            # Create the user profile
+            Profile.objects.create(user=new_user)
             return render(request,
                           'account/register_done.html',
                           {'new_user': new_user})
