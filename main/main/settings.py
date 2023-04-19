@@ -132,7 +132,9 @@ LOGIN_REDIRECT_URL = 'dashboard'
 
 LOGOUT_URL = 'logout'
 
-LOGOUT_REDIRECT_URL = "dashboard" 
+LOGOUT_REDIRECT_URL = "dashboard"
+
+PASSWORD_CHANGE_URL = 'password_change'
 
 TIME_ZONE = 'Europe/Warsaw'
 

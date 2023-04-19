@@ -12,12 +12,12 @@ p {
 }
 
 a {
-    color:#000000;
+    color:#66c3fc;
     text-decoration:none;
 }
 
 a:hover {
-    color:#23415a;
+    color:#0870c5;
 }
 
 h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
