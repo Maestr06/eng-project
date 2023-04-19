@@ -53,6 +53,7 @@ class UserEditView(View):
         if user_edit_form.is_valid() and profile_edit_form.is_valid():
             user_edit_form.save()
             profile_edit_form.save()
+        return render(request, 'account/edit.html', {'user_form': user_edit_form, 'profile_form': profile_edit_form})
 
 class OfferAddView(View):
 
