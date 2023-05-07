@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Offer, User, Profile, Company
+from .models import Offer, User, Profile, Company, Application
 
 class OfferForm(forms.ModelForm):
 
@@ -35,10 +35,13 @@ class UserRegistrationForm(forms.ModelForm):
         return data
     
 class UserEditForm(forms.ModelForm):
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']
+
 class ProfileEditForm(forms.ModelForm):
+    
     class Meta:
         model = Profile
         fields = ['date_of_birth', 'photo']
@@ -48,3 +51,9 @@ class CompanyEditForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = ['company_name', 'employee_count', 'address', 'logo']
+
+class ApplicationForm(forms.ModelForm):
+
+    class Meta:
+        model = Application
+        fields = ['app_text', 'email', 'cv']

@@ -2,6 +2,12 @@
 {% block title %}Job offers{% endblock %}
 {% block content %}
 <div class="card">
+    <form class="d-flex d-row flex-wrap justify-content-around align-items-center" action="" method="get">
+        {{ filter.form }}
+        <input type="submit" value="Filter" />
+    </form>
+</div>
+<div class="card">
     {% for object in object_list %}
     <a class="test" href="{% url 'offer_detail' object.pk %}"><div class="list-group-item">{{ object.offer_title }}</div></a>
     {% endfor %}

@@ -23,5 +23,7 @@
     <strong><p>{{ object.offer_range_max }}</p></strong>
     <h4>Offer posted:</h4>
     <strong><p>{{ object.offer_post_time }}</p></strong>
+    <a class="button" href="{% url 'offer_apply' object.pk %}">APPLY FOR THIS OFFER</a>
 </div>
+
 {% endblock %}

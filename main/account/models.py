@@ -85,7 +85,7 @@ class Application(models.Model):
     company = models.ForeignKey('Company', on_delete=models.CASCADE)
     offer = models.ForeignKey('Offer', on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100) #combine first and last name
-    app_text = models.CharField(max_length=250)
+    app_text = models.CharField(max_length=250, verbose_name='Application info')
     email = models.EmailField(max_length=100)
     cv = models.BooleanField(default=False)
     applied_time = models.DateTimeField(auto_now_add=True)

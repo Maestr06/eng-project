@@ -5,8 +5,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.views.generic import DetailView, ListView
-from .models import Offer, Skill, Technology, Profile
-from .forms import OfferForm, UserRegistrationForm, UserEditForm, ProfileEditForm, CompanyEditForm
+from .models import Application, Offer, Skill, Technology, Profile
+from .forms import ApplicationForm, OfferForm, UserRegistrationForm, UserEditForm, ProfileEditForm, CompanyEditForm
+import django_filters
+from django_filters.views import FilterView
+from .filters import PostFilter
 
 @login_required
 def dashboard(request):
@@ -72,13 +75,38 @@ class OfferDetailView(DetailView):
 
     model = Offer
 
-
-class OfferListView(ListView):
+class OfferListView(FilterView):
     
     model = Offer
     paginate_by = 4
+    filterset_class = PostFilter
+    context_object_name = 'offers'
+    template_name = 'account/offer_list.html'
 
     def get_context_data(self, **kwargs: any) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
         context['section'] = 'offers'
         return context
+    
+class ApplicationListView(ListView):
+    
+    model = Application
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs: any) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context['section'] = 'applications'
+        return context
+    
+class ApplicationAddView(View):
+    def get(self, request, pk):
+        offer_pk = pk
+        form = ApplicationForm()
+        return render(request, 'account/offer_apply.html', {'form': form, 'offer_pk': offer_pk})
+
+    def post(self, request, pk):
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            application = form.save(commit=False)
+            application.save()
+            return redirect('my_applications')
