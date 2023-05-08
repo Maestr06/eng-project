@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Job offers{% endblock %}
+{% block head %}
+<link href="{% static 'css/calculator.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="wrapper d-flex flex-column align-items-left">
+    <h3>Kalkulator wynagrodzeń</h3>
+    <div>
+        <label for="value">Kwota brutto</label>
+        <input type="number" id="value" min="0" />
+    </div>
+    <div class="d-flex justify-content-left form-check">
+        <input type="checkbox" name="miejsce" id="miejsce" checked="true" class="form-check-input"/>
+        <label for="miejsce" class="form-check-label">Zatrudnienie w miejscu zamieszkania?</label>
+    </div>
+    <div class="d-flex justify-content-left form-check">
+        <input type="checkbox" name="pit0" id="pit0" checked="true" class="form-check-input"/>
+        <label for="pit0" class="form-check-label">Ulga dla młodych - PIT0</label>
+    </div>
+    <div class="d-flex justify-content-left form-check">
+        <input type="checkbox" name="ppk" id="ppk" class="form-check-input"/>
+        <label for="ppk" class="form-check-label">PPK</label>
+    </div>
+    <div id="pracownik_proc_ppk_div" style="display:none;">
+        <label for="pracownik_proc_ppk">PPK Pracownika</label>
+        <input type="number" name="pracownik_proc_ppk" id="pracownik_proc_ppk" min="2" max="4" step="0.01" value="2" />
+    </div>
+    <div id="pracodawca_proc_ppk_div" style="display:none;">
+        <label for="pracodawca_proc_ppk">PPK Pracodawca</label>
+        <input type="number" name="pracodawca_proc_ppk" id="pracodawca_proc_ppk" min="1.5" max="4" step="0.01"
+            value="1.5" />
+    </div>
+    <div>
+        <label for="ulga">Kwota ulgi podatkowej</label>
+        <select id="ulga">
+            <option value="300">300zł</option>
+            <option value="150">150zł</option>
+            <option value="100">100zł</option>
+        </select>
+    </div>
+    <div>
+        Wynagrodzenie netto to: <span id="result">-</span>
+    </div>
+</div>
+<script src="{% static 'js/calculator.js' %}"></script>
+{% endblock %}

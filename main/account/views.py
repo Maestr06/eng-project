@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import View
+from django.views.generic.base import TemplateView
 from django.views.generic import DetailView, ListView
 from .models import Application, Offer, Skill, Technology, Profile
 from .forms import ApplicationForm, OfferForm, UserRegistrationForm, UserEditForm, ProfileEditForm, CompanyEditForm
@@ -110,3 +111,6 @@ class ApplicationAddView(View):
             application = form.save(commit=False)
             application.save()
             return redirect('my_applications')
+
+class CalculatorView(TemplateView):
+    template_name = "account/calculator.html"

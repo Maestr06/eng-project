@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from . import views
-from .views import ApplicationAddView, ApplicationListView, UserRegistrationView, OfferAddView, OfferDetailView, OfferListView, UserEditView
+from .views import CalculatorView, ApplicationAddView, ApplicationListView, UserRegistrationView, OfferAddView, OfferDetailView, OfferListView, UserEditView
 
 
 urlpatterns = [
@@ -14,5 +14,6 @@ urlpatterns = [
     path('offer/list/', OfferListView.as_view(), name='offer_list' ),
     path('edit/user/', UserEditView.as_view(), name='edit_user'),
     path('offer/<int:pk>/apply/', ApplicationAddView.as_view(), name='offer_apply'),
-    path('my_applications/', ApplicationListView.as_view(), name='my_applications')
+    path('my_applications/', ApplicationListView.as_view(), name='my_applications'),
+    path('calculator/', CalculatorView.as_view(), name='calculator')
 ]

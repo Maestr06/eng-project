@@ -5,6 +5,7 @@
   <title>{% block title %}{% endblock %}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="{% static 'css/base.css' %}" rel="stylesheet">
+  {% block head %}{% endblock %}
 </head>
 <body>
   <div id="header" class="sticky-top">
@@ -25,6 +26,9 @@
         </li>
         <li {% if section == "offers" %} class="selected"{% endif %}>
           <a href="{% url 'offer_list' %}">Offers</a>
+        </li>
+        <li {% if section == "calculator" %} class="selected"{% endif %}>
+          <a href="{% url 'calculator' %}">Calculator</a>
         </li>
         <li {% if section == "new_offer" %} class="selected"{% endif %}>
           <a class="button" href="{% url 'offer_add' %}">CREATE NEW OFFER</a>
