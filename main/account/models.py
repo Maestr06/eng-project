@@ -16,7 +16,7 @@ class Profile(models.Model):
 
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    company_name = models.CharField(max_length=100, unique=True)
+    company_name = models.CharField(max_length=100, unique=True, blank=True)
     employee_count = models.PositiveIntegerField(null=True, blank=True)
     address = models.CharField(max_length=100)
     logo = models.ImageField(upload_to='companies/%Y/%m/%d/',

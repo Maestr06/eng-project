@@ -150,3 +150,8 @@ class ApplicationAddView(View):
 
 class CalculatorView(TemplateView):
     template_name = "account/calculator.html"
+
+    def get_context_data(self, **kwargs: any) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context['section'] = 'calculator'
+        return context
