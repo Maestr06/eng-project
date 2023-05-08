@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView, ListView
-from .models import Application, Offer, Skill, Technology, Profile
-from .forms import ApplicationForm, OfferForm, UserRegistrationForm, UserEditForm, ProfileEditForm, CompanyEditForm
+from .models import Application, Offer, Skill, Technology, Profile, Company
+from .forms import ApplicationForm, OfferForm, CompanyRegistrationForm, UserRegistrationForm, UserEditForm, ProfileEditForm, CompanyEditForm
 import django_filters
 from django_filters.views import FilterView
 from .filters import PostFilter
@@ -42,6 +42,32 @@ class UserRegistrationView(View):
         else:
             return render(request, 'account/register.html', {'user_form': user_form})
 
+class CompanyRegistrationView(View):
+
+    def get(self, request):
+        user_form = UserRegistrationForm()
+        company_form = CompanyRegistrationForm()
+        return render(request, 'account/register_company.html', {'user_form': user_form, 'company_form': company_form})
+    
+    def post(self, request):
+        user_form = UserRegistrationForm(request.POST)
+        company_form = CompanyRegistrationForm(request.POST, request.FILES)
+        if user_form.is_valid() and company_form.is_valid():
+            company_name = company_form.cleaned_data['company_name']
+            employee_count = company_form.cleaned_data['employee_count']
+            address = company_form.cleaned_data['address']
+            logo = request.FILES['logo']
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            
+            Company.objects.create(user=new_user, company_name=company_name, employee_count=employee_count, address=address, logo=logo)
+            new_user.save()
+            Profile.objects.create(user=new_user)
+            return render(request,
+                          'account/register_done.html',
+                          {'new_user': new_user})
+        else:
+            return render(request, 'account/register_company.html', {'user_form': user_form, 'company_form': company_form})
 
 class UserEditView(View):
 
@@ -87,6 +113,16 @@ class OfferListView(FilterView):
     def get_context_data(self, **kwargs: any) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
         context['section'] = 'offers'
+        return context
+    
+class CompanyListView(ListView):
+    
+    model = Company
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs: any) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context['section'] = 'companies'
         return context
     
 class ApplicationListView(ListView):
