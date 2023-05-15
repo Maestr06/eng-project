@@ -113,7 +113,28 @@ class OfferListView(FilterView):
     def get_context_data(self, **kwargs: any) -> dict[str, any]:
         context = super().get_context_data(**kwargs)
         context['section'] = 'offers'
+        curr_path = self.request.get_full_path()
+        curr_path = curr_path[21:]
+        if curr_path and len(curr_path) != 44:
+            context['path'] = curr_path
         return context
+    
+    # def get(self, request, *args, **kwargs):
+    #     context = super().get(request, *args, **kwargs)
+    #     context['path'] = request.get_full_path
+    #     return context
+    
+class FilterAddView(View):
+
+    def get(self, request, path):
+        offer_tech = request.GET.get('offer_tech')
+        offer_skills = request.GET.get('offer_skills')
+        offer_seniority = request.GET.get('offer_seniority')
+        offer_location = request.GET.get('offer_location')
+        test = request.GET.get('test')
+        context = {'offer_tech': offer_tech, 'offer_skills': offer_skills, 'offer_seniority': offer_seniority, 'offer_location': offer_location, 'path': path, 'test': test
+        }
+        return render(request, 'account/filter_add.html', context)
     
 class CompanyListView(ListView):
     
