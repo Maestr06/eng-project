@@ -6,17 +6,15 @@
 <div class="card">
     {% if request.user.is_authenticated %}
         {% if path %}
-            {% with "?"|add:path as p %}
-                <form action="{% url 'filter_add' p %}" method='GET' class="d-flex d-row flex-wrap justify-content-end align-items-center">
-                    <input type="submit" value="Save filter"/>
-                    <input type="hidden" value="{{ filter.form.offer_skills.value }}" name="test"/>
-                    <input type="hidden" value="{{ filter.form.offer_skills.value }}" name="test"/>
-                    <input type="hidden" value="{{ filter.form.offer_skills.value }}" name="test"/>
-                    <input type="hidden" value="{{ filter.form.offer_skills.value }}" name="test"/>
-                    
-                    {% comment %} {% csrf_token %} {% endcomment %}
-                </form>
-            {% endwith %}
+            <form action="{% url 'filter_add' path %}" method='GET' class="d-flex d-row flex-wrap justify-content-end align-items-center">
+                <input type="submit" value="Save filter"/>
+                <input type="hidden" value="{{ filter.form.offer_tech.value }}" name="offer_tech"/>
+                <input type="hidden" value="{{ filter.form.offer_skills.value }}" name="offer_skills"/>
+                <input type="hidden" value="{{ filter.form.offer_seniority.value }}" name="offer_seniority"/>
+                <input type="hidden" value="{{ filter.form.offer_location.value }}" name="offer_location"/>
+
+                {% comment %} {% csrf_token %} {% endcomment %}
+            </form>
         {% endif %}
     {% endif %}
     <form class="d-flex d-row flex-wrap justify-content-around align-items-center" action="" method="get">

@@ -131,9 +131,7 @@ class FilterAddView(View):
         offer_skills = request.GET.get('offer_skills')
         offer_seniority = request.GET.get('offer_seniority')
         offer_location = request.GET.get('offer_location')
-        test = request.GET.get('test')
-        context = {'offer_tech': offer_tech, 'offer_skills': offer_skills, 'offer_seniority': offer_seniority, 'offer_location': offer_location, 'path': path, 'test': test
-        }
+        context = {'offer_tech': offer_tech, 'offer_skills': offer_skills, 'offer_seniority': offer_seniority, 'offer_location': offer_location, 'path': path}
         return render(request, 'account/filter_add.html', context)
     
 class CompanyListView(ListView):
