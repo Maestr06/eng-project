@@ -17,5 +17,5 @@ urlpatterns = [
     path('my_applications/', ApplicationListView.as_view(), name='my_applications'),
     path('calculator/', CalculatorView.as_view(), name='calculator'),
     path('companies/', CompanyListView.as_view(), name='companies'),
-    path('filter/add/<path:path>/', FilterAddView.as_view(), name='filter_add')
+    path('filter/add/', FilterAddView.as_view(), name='filter_add')
 ]

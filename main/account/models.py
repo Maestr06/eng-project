@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.forms.widgets import CheckboxSelectMultiple
+from django import forms
 
 
 # Create your models here.
@@ -16,12 +17,11 @@ class Profile(models.Model):
         return f'Profile of {self.user.username}'
 
 class Company(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='company')
     company_name = models.CharField(max_length=100, unique=True, blank=True)
     employee_count = models.PositiveIntegerField(null=True, blank=True)
     address = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to='companies/%Y/%m/%d/',
-                              blank=True)
+    logo = models.ImageField(upload_to='companies/%Y/%m/%d/', default='/companies/2023/05/09/pobrane.png')
 
     class Meta:
         verbose_name_plural = 'Companies'
@@ -45,6 +45,7 @@ class Skill(models.Model):
         return self.skill_title
 
 class Offer(models.Model):
+    offer_company = models.ForeignKey('Company', on_delete=models.CASCADE)
     offer_title = models.CharField(max_length=100, default='Oferta pracy')
     offer_tech = models.ForeignKey('Technology', on_delete=models.CASCADE)
     offer_skills = models.ManyToManyField('Skill')
@@ -60,10 +61,27 @@ class Offer(models.Model):
     
 class Filter(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    tech = models.ForeignKey('Technology', on_delete=models.CASCADE)
-    skills = models.ManyToManyField('Skill')
-    location = models.ForeignKey('Location', on_delete=models.CASCADE)
-    seniority = models.ForeignKey('Seniority', on_delete=models.CASCADE)
+    tech = models.ForeignKey('Technology', on_delete=models.CASCADE, blank=True, null=True)
+    skill_query = models.TextField(blank=True)
+    skills = models.ManyToManyField('Skill', blank=True, null=True)
+    location = models.ForeignKey('Location', on_delete=models.CASCADE, blank=True, null=True)
+    seniority = models.ForeignKey('Seniority', on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        
+        tech = skill = location = seniority = skill_list = ''
+        if self.tech:
+            tech = self.tech.tech_title
+        if self.skill_query:
+            skill = self.skill_query
+            skill_list = eval(skill)
+            skill_list = [Skill.objects.get(pk=i).skill_title for i in skill_list]
+            skill_list = str(skill_list).strip("[]").replace("'","")
+        if self.location:
+            location = self.location.location_name
+        if self.seniority:
+            seniority = self.seniority.seniority_name
+        return tech + skill_list
 
 class Seniority(models.Model):
     seniority_name = models.CharField(max_length=6)\

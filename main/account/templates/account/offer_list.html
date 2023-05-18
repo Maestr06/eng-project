@@ -6,14 +6,14 @@
 <div class="card">
     {% if request.user.is_authenticated %}
         {% if path %}
-            <form action="{% url 'filter_add' path %}" method='GET' class="d-flex d-row flex-wrap justify-content-end align-items-center">
+            <form action="{% url 'filter_add' %}" method='POST' class="d-flex d-row flex-wrap justify-content-end align-items-center">
                 <input type="submit" value="Save filter"/>
                 <input type="hidden" value="{{ filter.form.offer_tech.value }}" name="offer_tech"/>
                 <input type="hidden" value="{{ filter.form.offer_skills.value }}" name="offer_skills"/>
                 <input type="hidden" value="{{ filter.form.offer_seniority.value }}" name="offer_seniority"/>
                 <input type="hidden" value="{{ filter.form.offer_location.value }}" name="offer_location"/>
-
-                {% comment %} {% csrf_token %} {% endcomment %}
+                <input type="hidden" value="{{ request.get_full_path }}" name="next"/>
+                {% csrf_token %}
             </form>
         {% endif %}
     {% endif %}
@@ -23,10 +23,10 @@
     </form>
 </div>
 {% comment %} EUREEKAA {% endcomment %}
-<div>{{ filter.form.offer_skills.value }}</div>
+{% comment %} <div>{{ filter.form.offer_skills.value }}</div>
 <div>{{ filter.request.GET }}</div>
 <div>{{ filter.request }}</div>
-<div>{{ request.get_full_path | cut:'/account/offer/list/' }}</div>  
+<div>{{ request.get_full_path | cut:'/account/offer/list/' }}</div>   {% endcomment %}
 <div class="card">
     {% for object in object_list %}
     <a class="test" href="{% url 'offer_detail' object.pk %}"><div class="list-group-item">{{ object.offer_title }}</div></a>

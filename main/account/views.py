@@ -6,17 +6,18 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView, ListView
-from .models import Application, Offer, Skill, Technology, Profile, Company
-from .forms import ApplicationForm, OfferForm, CompanyRegistrationForm, UserRegistrationForm, UserEditForm, ProfileEditForm, CompanyEditForm
+from .models import *
+from .forms import *
 import django_filters
 from django_filters.views import FilterView
 from .filters import PostFilter
 
 @login_required
 def dashboard(request):
+    filters = Filter.objects.filter(user=request.user)
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard'})
+                  {'section': 'dashboard', 'filters': filters})
 
 class UserRegistrationView(View):
 
@@ -56,12 +57,14 @@ class CompanyRegistrationView(View):
             company_name = company_form.cleaned_data['company_name']
             employee_count = company_form.cleaned_data['employee_count']
             address = company_form.cleaned_data['address']
-            logo = request.FILES['logo']
+            logo = None
+            if request.FILES:
+                logo = request.FILES['logo']
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password'])
             
-            Company.objects.create(user=new_user, company_name=company_name, employee_count=employee_count, address=address, logo=logo)
             new_user.save()
+            Company.objects.create(user=new_user, company_name=company_name, employee_count=employee_count, address=address, logo=logo)
             Profile.objects.create(user=new_user)
             return render(request,
                           'account/register_done.html',
@@ -95,6 +98,7 @@ class OfferAddView(View):
         offer_form = OfferForm(request.POST)
         if offer_form.is_valid():
             new_offer = offer_form.save(commit=False)
+            new_offer.company = request.user.company
             new_offer.save()
             return redirect('offer_detail', pk=new_offer.pk)
             
@@ -119,27 +123,46 @@ class OfferListView(FilterView):
             context['path'] = curr_path
         return context
     
-    # def get(self, request, *args, **kwargs):
-    #     context = super().get(request, *args, **kwargs)
-    #     context['path'] = request.get_full_path
-    #     return context
-    
 class FilterAddView(View):
 
-    def get(self, request, path):
-        offer_tech = request.GET.get('offer_tech')
-        offer_skills = request.GET.get('offer_skills')
-        offer_seniority = request.GET.get('offer_seniority')
-        offer_location = request.GET.get('offer_location')
-        context = {'offer_tech': offer_tech, 'offer_skills': offer_skills, 'offer_seniority': offer_seniority, 'offer_location': offer_location, 'path': path}
-        return render(request, 'account/filter_add.html', context)
+    def post(self, request):
+        next = request.POST.get('next')
+        
+        offer_tech = request.POST.get('offer_tech')
+        offer_skills = request.POST.get('offer_skills')
+        offer_seniority = request.POST.get('offer_seniority')
+        offer_location = request.POST.get('offer_location')
+        tech = seniority = location = skills = None
+        skills = eval(offer_skills)
+        if offer_skills:
+            skills = [int(i) for i in skills]
+            print(skills)
+    
+        if offer_tech:
+            tech = Technology.objects.get(pk=offer_tech)
+            # curr_filter.tech = tech
+        if offer_seniority:
+            seniority = Seniority.objects.get(pk=offer_seniority)
+            # curr_filter.seniority = seniority
+        if offer_location:
+            location = Location.objects.get(pk=offer_location)
+            # curr_filter.location = location
+        
+        test = Filter.objects.filter(user=request.user, tech=tech, seniority=seniority, location=location, skill_query=skills).exists()
+        print(test)
+        if test == False:
+            curr_filter = Filter(user=request.user, tech=tech, seniority=seniority, location=location, skill_query=str(skills))
+            curr_filter.save()
+
+        context = {'offer_tech': offer_tech, 'offer_seniority': offer_seniority, 'offer_location': offer_location, 'offer_skills': offer_skills}
+        return redirect(next)
     
 class CompanyListView(ListView):
     
     model = Company
     paginate_by = 5
 
-    def get_context_data(self, **kwargs: any) -> dict[str, any]:
+    def get_context_data(self, **kwargs: any) -> dict[str, any]: 
         context = super().get_context_data(**kwargs)
         context['section'] = 'companies'
         return context

@@ -1,12 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Offer, User, Profile, Company, Application
+from django.db import models
 
 class OfferForm(forms.ModelForm):
 
     class Meta:
         model = Offer
-        fields = '__all__'
+        fields = ['offer_title', 'offer_tech', 'offer_skills', 'offer_description', 'offer_range_min', 'offer_range_max', 'offer_seniority', 'offer_location']
+        widgets = {
+            'offer_skills': forms.CheckboxSelectMultiple(),
+        }
 
 class LoginForm(forms.Form):
     username = forms.CharField()

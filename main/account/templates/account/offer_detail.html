@@ -2,6 +2,8 @@
 {% block title %}{{ object.offer_title }}{% endblock %}
 {% block content %}
 <div style="display: flex; flex-direction: column;">
+    <img width="60px" src="{{ object.offer_company.logo.url }}" alt="file">
+    <p>{{ object.offer_company }}</p>
     <h2>{{ object.offer_title }}</h2>
     <h4>Main tech:</h4>
     <strong><p>{{ object.offer_tech }}</p></strong>
@@ -14,7 +16,7 @@
     {% endfor %}
     </ul>
     <h4>Description:</h4>
-    <textarea style="background-color: white;">{{ object.offer_description }}</textarea>
+    <textarea readonly style="background-color: white;">{{ object.offer_description }}</textarea>
     <h4>Compensation:</h4>
     <strong><p>{{ object.offer_compensation }}</p></strong>
     <h4>Minimum compensation:</h4>
@@ -23,7 +25,10 @@
     <strong><p>{{ object.offer_range_max }}</p></strong>
     <h4>Offer posted:</h4>
     <strong><p>{{ object.offer_post_time }}</p></strong>
-    <a class="button" href="{% url 'offer_apply' object.pk %}">APPLY FOR THIS OFFER</a>
+    {% if request.user.company %}
+        <a class="button" href="{% url 'offer_apply' object.pk %}">APPLY FOR THIS OFFER</a>
+    {% endif %}
+    
 </div>
 
 {% endblock %}
