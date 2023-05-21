@@ -4,7 +4,8 @@ body {
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
-    height: calc(100vh - 100px);
+    height: calc(100vh);
+    margin-bottom: 100px;
 }
 
 footer {
@@ -41,6 +42,20 @@ h2 {
 ol {
     line-height:1.5;
 }
+
+
+
+div#div_id_offer_skills {
+    display: flex;
+    flex-direction: column;
+}
+
+div#div_id_offer_skills > div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 
 #header {
     padding:10px 100px;
@@ -290,6 +305,19 @@ a.button {
     border-radius: 5px;
 }
 
+label.form-label {
+    margin-right: 1rem;
+}
+
+div.form-check {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1rem;
+}
+
+input.form-check-input {
+    margin-right: 0.5rem;
+}
 /* .card, .list-group-item {
     border-radius: 8px!important;
 } */

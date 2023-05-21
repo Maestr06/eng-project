@@ -7,7 +7,7 @@
   </p>
   <ul>
     {% for filter in filters %}
-      <li>{{ filter }}</li>
+      <li><a href="{% url 'offer_list' %}?offer_tech={{ filter.tech.id|default_if_none:'' }}&{{ filter.get_skill_query }}offer_seniority={{ filter.seniority.id|default_if_none:'' }}&offer_location={{ filter.location.id|default_if_none:'' }}">{{ filter }}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}

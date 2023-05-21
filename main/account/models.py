@@ -67,6 +67,14 @@ class Filter(models.Model):
     location = models.ForeignKey('Location', on_delete=models.CASCADE, blank=True, null=True)
     seniority = models.ForeignKey('Seniority', on_delete=models.CASCADE, blank=True, null=True)
 
+    def get_skill_query(self):
+        result = ''
+        if self.skill_query:
+            values = eval(self.skill_query)
+            for val in values:
+                result += f'offer_skills={val}&'
+        return result
+
     def __str__(self):
         
         tech = skill = location = seniority = skill_list = ''
@@ -81,7 +89,7 @@ class Filter(models.Model):
             location = self.location.location_name
         if self.seniority:
             seniority = self.seniority.seniority_name
-        return tech + skill_list
+        return tech + ' ' + skill_list + ' ' + seniority + ' ' + location
 
 class Seniority(models.Model):
     seniority_name = models.CharField(max_length=6)\

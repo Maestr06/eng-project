@@ -1,0 +1,13 @@
+[id*= "div_id_offer"] {
+    /* flex: 1 1 0; */
+    width: 15%;
+}
+
+div#div_id_offer_skills > div {
+    display: flex;
+    flex-direction: row;
+}
+
+div#div_id_offer_skills {
+    width: 30%
+}
