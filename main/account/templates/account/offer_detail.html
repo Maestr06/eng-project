@@ -2,7 +2,9 @@
 {% block title %}{{ object.offer_title }}{% endblock %}
 {% block content %}
 <div style="display: flex; flex-direction: column;">
-    <img width="60px" src="{{ object.offer_company.logo.url }}" alt="file">
+    {% if object.offer_company.logo %}
+        <img width="60px" src="{{ object.offer_company.logo.url }}" alt="file">
+    {% endif %}
     <p>{{ object.offer_company }}</p>
     <h2>{{ object.offer_title }}</h2>
     <h4>Main tech:</h4>
@@ -25,7 +27,7 @@
     <strong><p>{{ object.offer_range_max }}</p></strong>
     <h4>Offer posted:</h4>
     <strong><p>{{ object.offer_post_time }}</p></strong>
-    {% if request.user.company %}
+    {% if not request.user.company %}
         <a class="button" href="{% url 'offer_apply' object.pk %}">APPLY FOR THIS OFFER</a>
     {% endif %}
     

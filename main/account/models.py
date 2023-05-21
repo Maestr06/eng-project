@@ -48,7 +48,7 @@ class Offer(models.Model):
     offer_company = models.ForeignKey('Company', on_delete=models.CASCADE)
     offer_title = models.CharField(max_length=100, default='Oferta pracy')
     offer_tech = models.ForeignKey('Technology', on_delete=models.CASCADE)
-    offer_skills = models.ManyToManyField('Skill')
+    offer_skills = models.ManyToManyField('Skill', blank=True)
     offer_description = models.CharField(max_length=250, default='Opis oferty pracy')
     offer_post_time = models.DateTimeField(auto_now_add=True)
     offer_range_min = models.PositiveIntegerField(default=0)
@@ -101,7 +101,7 @@ class Location(models.Model):
     
 class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    company = models.ForeignKey('Company', on_delete=models.CASCADE)
+    company = models.ForeignKey('Company', on_delete=models.CASCADE, blank=True)
     offer = models.ForeignKey('Offer', on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100) #combine first and last name
     app_text = models.CharField(max_length=250, verbose_name='Application info')
@@ -110,7 +110,7 @@ class Application(models.Model):
     applied_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user + ' ' + self.offer
+        return self.user.username + ' ' + self.offer.offer_title
     
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

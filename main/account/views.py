@@ -180,16 +180,32 @@ class ApplicationListView(ListView):
 class ApplicationAddView(View):
     def get(self, request, pk):
         offer_pk = pk
+        offer = Offer.objects.get(pk=pk)
+        company = offer.offer_company
         form = ApplicationForm()
-        return render(request, 'account/offer_apply.html', {'form': form, 'offer_pk': offer_pk})
+        form.company = company
+        form.offer = offer
+        return render(request, 'account/offer_apply.html', {'form': form, 'offer_pk': offer_pk, 'company': company})
 
     def post(self, request, pk):
         form = ApplicationForm(request.POST)
+        offer = Offer.objects.get(pk=pk)
+        company = offer.offer_company
+        # form.company = company
+        print(company)
+        offer_pk = pk
+        errors = ''
         if form.is_valid():
             application = form.save(commit=False)
+            application.company = company
+            application.offer = offer
+            application.user = request.user
             application.save()
-            return redirect('my_applications')
-
+            return redirect('dashboard')
+        else:
+            errors = form.errors
+        return render(request, 'account/offer_apply.html', {'form': form, 'offer_pk': offer_pk, 'company': company, 'errors': errors})
+    
 class CalculatorView(TemplateView):
     template_name = "account/calculator.html"
 

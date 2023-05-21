@@ -66,4 +66,8 @@ class ApplicationForm(forms.ModelForm):
 
     class Meta:
         model = Application
-        fields = ['app_text', 'email', 'cv']
+        fields = ['app_text', 'email', 'cv', 'company']
+
+        widgets = {
+            'company': forms.HiddenInput,
+        }

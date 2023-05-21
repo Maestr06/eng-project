@@ -3,6 +3,9 @@
 {% load crispy_forms_tags %}
 {% block title %}Apply for this job offer{% endblock %}
 {% block content %}
+{% if errors %}
+    <p>{{ errors }}</p>
+{% endif %}
 <form action="{% url 'offer_apply' offer_pk %}" method="post">
     {{ form|crispy }}
     {% csrf_token %}

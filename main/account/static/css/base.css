@@ -4,12 +4,13 @@ body {
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
-    height: 100vh;
+    height: calc(100vh - 100px);
 }
 
 footer {
     background-color: #333;
-    min-height: 100px;
+    height: 100px;
+    /* margin-top: -100px; */
 }
 
 p {
