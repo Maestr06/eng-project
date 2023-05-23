@@ -3,11 +3,52 @@
 {% block content %}
   <h1>Dashboard</h1>
   <p>
-    Welcome to your dashboard. You can <a href="{% url 'edit_user' %}">edit your profile</a> or <a href="{% url 'password_change' %}">change your password</a>.
+     Welcome to your dashboard. You can 
+    {% if request.user.company %}
+    <a href="{% url 'edit_company' %}">
+    {% else %}
+    <a href="{% url 'edit_user' %}">
+    {% endif %}
+    edit your profile</a> or <a href="{% url 'password_change' %}">change your password</a>.
   </p>
-  <ul>
-    {% for filter in filters %}
-      <li><a href="{% url 'offer_list' %}?offer_tech={{ filter.tech.id|default_if_none:'' }}&{{ filter.get_skill_query }}offer_seniority={{ filter.seniority.id|default_if_none:'' }}&offer_location={{ filter.location.id|default_if_none:'' }}">{{ filter }}</a></li>
-    {% endfor %}
-  </ul>
+  <div class="row">
+    {% if filters %}
+      <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+          <h4 class="card-header">Your saved filters</h4>
+          <ul class="list-group d-flex justify-content-start">
+            {% for filter in filters %}
+              <li class="list-group-item"><a href="{% url 'offer_list' %}?offer_tech={{ filter.tech.id|default_if_none:'' }}&{{ filter.get_skill_query }}offer_seniority={{ filter.seniority.id|default_if_none:'' }}&offer_location={{ filter.location.id|default_if_none:'' }}">{{ filter }}</a></li>
+            {% endfor %}  
+          </ul>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+          <h4 class="card-header">Your saved filters</h4>
+          <div class="card-body">Nothing here yet</div>
+        </div>
+      </div>
+    {% endif %}
+    {% if applications %}
+      <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+          <h4 class="card-header">Your applications</h4>
+          <ul class="list-group d-flex justify-content-start">
+            {% for application in applications %}
+              <li class="list-group-item">{{ application.offer }}</li>
+            {% endfor %}  
+          </ul>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-lg-6 mb-4">
+        <div class="card shadow">
+          <h4 class="card-header">Your applications</h4>
+          <div class="card-body">Nothing here yet</div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

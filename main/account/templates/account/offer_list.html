@@ -7,7 +7,7 @@
 <link href="{% static 'css/offers.css' %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
-<div class="card">
+<div class="card mb-5 shadow">
     {% if request.user.is_authenticated %}
         {% if path %}
             <form action="{% url 'filter_add' %}" method='POST' class="d-flex d-row flex-wrap justify-content-end align-items-center">
@@ -26,14 +26,10 @@
         <input type="submit" value="Filter"/>
     </form>
 </div>
-{% comment %} EUREEKAA {% endcomment %}
-{% comment %} <div>{{ filter.form.offer_skills.value }}</div>
-<div>{{ filter.request.GET }}</div>
-<div>{{ filter.request }}</div>
-<div>{{ request.get_full_path | cut:'/account/offer/list/' }}</div>   {% endcomment %}
-<div class="card">
+
+<div class="card mb-2 shadow">
     {% for object in object_list %}
-    <a class="test" href="{% url 'offer_detail' object.pk %}"><div class="list-group-item">{{ object.offer_title }}</div></a>
+    <a class="list-group" href="{% url 'offer_detail' object.pk %}"><div class="list-group-item">{{ object.offer_title }}</div></a>
     {% endfor %}
 </div>
 <div class="pagination">

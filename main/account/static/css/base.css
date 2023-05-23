@@ -4,7 +4,7 @@ body {
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
-    height: calc(100vh);
+    height: 100vh;
     margin-bottom: 100px;
 }
 
@@ -103,9 +103,10 @@ div#div_id_offer_skills > div {
 }
 
 #content {
-    padding:30px 100px;
+    padding: 30px 100px;
     background-color: #eeeeee;
-    height: 100%;
+    height: calc(100% + 100px);
+    padding-top: 30px;
 }
 
 /* forms */
@@ -318,6 +319,10 @@ div.form-check {
 input.form-check-input {
     margin-right: 0.5rem;
 }
+
+/* .card {
+    box-shadow: 0 .5rem 1rem rgba(black, .15);
+} */
 /* .card, .list-group-item {
     border-radius: 8px!important;
 } */

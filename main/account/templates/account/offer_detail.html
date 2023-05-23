@@ -10,21 +10,23 @@
     <h4>Main tech:</h4>
     <strong><p>{{ object.offer_tech }}</p></strong>
     <h4>Seniority:</h4>
-    <strong><p>{{ object.get_offer_seniority_display }}</p></strong>
-    <h4>Skills:</h4>
-    <ul>
-    {% for skill in object.offer_skills.all %}
-        <strong><li>{{ skill }}</li></strong>
-    {% endfor %}
-    </ul>
+    <strong><p>{{ object.offer_seniority }}</p></strong>
+    {% if object.offer_skills %}
+        <h4>Skills:</h4>
+        <ul>
+        {% for skill in object.offer_skills.all %}
+            <strong><li>{{ skill }}</li></strong>
+        {% endfor %}
+        </ul>
+    {% endif %}
     <h4>Description:</h4>
     <textarea readonly style="background-color: white;">{{ object.offer_description }}</textarea>
     <h4>Compensation:</h4>
-    <strong><p>{{ object.offer_compensation }}</p></strong>
-    <h4>Minimum compensation:</h4>
+    {% if object.offer_range_min == object.offer_range_max %}
     <strong><p>{{ object.offer_range_min }}</p></strong>
-    <h4>Maximum compensation:</h4>
-    <strong><p>{{ object.offer_range_max }}</p></strong>
+    {% else %}
+    <strong><p>{{ object.offer_range_min }} - {{ object.offer_range_max }}</p></strong>
+    {% endif %}
     <h4>Offer posted:</h4>
     <strong><p>{{ object.offer_post_time }}</p></strong>
     {% if not request.user.company %}

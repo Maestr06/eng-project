@@ -8,9 +8,11 @@
         <input type="submit" value="Filter" />
     </form>
 </div> {% endcomment %}
-<div class="card">
+<div class="">
     {% for object in object_list %}
-        <div class="list-group-item"><img width="50px" src="{{ object.logo.url }}"></img>{{ object.company_name }}</div>
+        <a href="{% url 'company_detail' object.pk %}">
+            <div class="card shadow mb-2 d-flex flex-row align-items-center"><img width="50px" src="{{ object.logo.url }}" class="me-4"></img>{{ object.company_name|upper }}</div>
+        </a>
     {% endfor %}
 </div>
 <div class="pagination">

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.company_name }}{% endblock %}
+{% block content %}
+<div style="display: flex; flex-direction: column;">
+    <div class="d-flex flex-row align-items-center flex-wrap">
+        {% if object.logo %}
+            <img width="60px" src="{{ object.logo.url }}" alt="company logo">
+        {% endif %}
+        <div class="ms-4">{{ object.company_name|upper }}</div>
+    </div>
+</div>
+
+{% endblock %}

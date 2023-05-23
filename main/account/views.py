@@ -15,9 +15,10 @@ from .filters import PostFilter
 @login_required
 def dashboard(request):
     filters = Filter.objects.filter(user=request.user)
+    applications = Application.objects.filter(user=request.user)
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard', 'filters': filters})
+                  {'section': 'dashboard', 'filters': filters, 'applications': applications})
 
 class UserRegistrationView(View):
 
@@ -87,6 +88,22 @@ class UserEditView(View):
             user_edit_form.save()
             profile_edit_form.save()
         return render(request, 'account/edit.html', {'user_form': user_edit_form, 'profile_form': profile_edit_form})
+    
+class CompanyEditView(View):
+    
+    def get(self, request):
+        user_edit_form = UserEditForm(instance=request.user)
+        company_edit_form = CompanyEditForm(instance=request.user.company)
+        return render(request, 'account/company_edit.html', {'user_form': user_edit_form, 'company_form': company_edit_form})
+    
+    def post(self, request):
+        user_edit_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        company_edit_form = CompanyEditForm(instance=request.user.company, data=request.POST, files=request.FILES)
+        if user_edit_form.is_valid() and company_edit_form.is_valid():
+            user_edit_form.save()
+            company_edit_form.save()
+        return render(request, 'account/company_edit.html', {'user_form': user_edit_form, 'company_form': company_edit_form})
 
 class OfferAddView(View):
 
@@ -98,8 +115,9 @@ class OfferAddView(View):
         offer_form = OfferForm(request.POST)
         if offer_form.is_valid():
             new_offer = offer_form.save(commit=False)
-            new_offer.company = request.user.company
+            new_offer.offer_company = request.user.company
             new_offer.save()
+            new_offer.offer_skills.set(request.POST.getlist('offer_skills'))
             return redirect('offer_detail', pk=new_offer.pk)
             
 class OfferDetailView(DetailView):
@@ -161,6 +179,15 @@ class CompanyListView(ListView):
     
     model = Company
     paginate_by = 5
+
+    def get_context_data(self, **kwargs: any) -> dict[str, any]: 
+        context = super().get_context_data(**kwargs)
+        context['section'] = 'companies'
+        return context
+    
+class CompanyDetailView(DetailView):
+    
+    model = Company
 
     def get_context_data(self, **kwargs: any) -> dict[str, any]: 
         context = super().get_context_data(**kwargs)
