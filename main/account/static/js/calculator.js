@@ -1,16 +1,30 @@
 let valueField = document.getElementById("value");
 let ulgaField = document.getElementById("ulga");
+let ulgaDiv = document.getElementById("ulgaDiv");
 let resultBox = document.getElementById("result");
 let ppkField = document.getElementById("ppk");
+let ppkDiv = document.getElementById("ppkDiv");
 let pitField = document.getElementById("pit0");
+let pitDiv = document.getElementById("pit0Div");
+let formaDiv = document.getElementById("formaDiv");
+let zusStartDiv = document.getElementById("zusStartDiv");
+let zusMalyDiv = document.getElementById("zusMalyDiv");
+let choroboweDiv = document.getElementById("choroboweDiv");
 let miejscePracyField = document.getElementById("miejsce");
+let miejscePracyDiv = document.getElementById("miejsceDiv");
 let ppkProcPracownikField = document.getElementById("pracownik_proc_ppk");
 let ppkProcPracownikDiv = document.getElementById("pracownik_proc_ppk_div");
 let ppkProcPracodawcaField = document.getElementById("pracodawca_proc_ppk");
 let ppkProcPracodawcaDiv = document.getElementById("pracodawca_proc_ppk_div");
 
-let emerytalne, podstawaPit, zaliczkaPit, netto;
-let chorobowe, rentowe, zdrowotne, brutto;
+let emerytalne,
+  podstawaPit,
+  zaliczkaPit,
+  netto,
+  chorobowe,
+  rentowe,
+  zdrowotne,
+  brutto;
 let pracownik_proc_ppk, pracodawca_proc_ppk, pracownik_ppk, pracodawca_ppk;
 const PIT_ZERO = 85528;
 const PROC_CHOROBOWE = 2.45;
@@ -20,7 +34,7 @@ const PROC_RENTOWE = 1.5;
 function przelicz() {
   let value = Number(valueField.value);
   let ulga = Number(ulgaField.value);
-  miejsce_pracy = 250;
+  let miejsce_pracy = 250;
   let stawkaPit = 0.12;
   let ppk_proc_pracow;
   let ppk_pracow;
@@ -118,6 +132,33 @@ ppkField.onchange = function () {
   przelicz();
 };
 
-function hide(field) {
-  field.style.display = "none";
+function hide(...fields) {
+  for (i = 0; i < fields.length; i++) {
+    fields[i].style.display = "none";
+  }
+}
+
+function showFlex(...fields) {
+  for (i = 0; i < fields.length; i++) {
+    fields[i].style.display = "flex";
+  }
+}
+
+function show(...fields) {
+  for (i = 0; i < fields.length; i++) {
+    fields[i].style.display = "initial";
+  }
+}
+
+function openTab(evt, tabName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+  if (tabName == "b2b") {
+    hide(ppkDiv, pitDiv, miejscePracyDiv, ulgaDiv);
+    showFlex(formaDiv, zusMalyDiv, zusStartDiv, choroboweDiv);
+  } else {
+    hide(formaDiv, zusMalyDiv, zusStartDiv, choroboweDiv);
+    show(ulgaDiv);
+    showFlex(ppkDiv, pitDiv, miejscePracyDiv)
+  }
 }

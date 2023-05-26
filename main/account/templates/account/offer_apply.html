@@ -6,9 +6,12 @@
 {% if errors %}
     <p>{{ errors }}</p>
 {% endif %}
-<form action="{% url 'offer_apply' offer_pk %}" method="post">
-    {{ form|crispy }}
-    {% csrf_token %}
-    <p><input type="submit" value="Apply"></p>
-</form>
+<div>
+    <form action="{% url 'offer_apply' offer_pk %}" method="post" class="d-flex flex-column justify-content-between">
+        {{ form|crispy }}
+        {% csrf_token %}
+        <p><input type="submit" value="Apply"></p>
+    </form>
+</div>
+
 {% endblock %}

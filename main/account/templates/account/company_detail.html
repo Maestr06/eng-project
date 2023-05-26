@@ -1,13 +1,36 @@
 {% extends 'base.html' %}
 {% block title %}{{ object.company_name }}{% endblock %}
 {% block content %}
-<div style="display: flex; flex-direction: column;">
-    <div class="d-flex flex-row align-items-center flex-wrap">
+<div class="d-flex flex-column justify-content-between">
+    <div class="d-flex flex-row align-items-center flex-wrap mb-4">
         {% if object.logo %}
             <img width="60px" src="{{ object.logo.url }}" alt="company logo">
         {% endif %}
-        <div class="ms-4">{{ object.company_name|upper }}</div>
+        <div class="ms-4"><h3>{{ object.company_name|upper }}</h3></div>
     </div>
+    <h4>Amount of employees:</h4>
+    <strong><p>{{ object.employee_count }}</p></strong>
+    <h4>Address:</h4>
+    <strong><p>{{ object.address }}</p></strong>
 </div>
+{% if offers %}
+        <div class="col-lg mb-4 mt-4">
+          <div class="card shadow">
+            <h4 class="card-header">Company offers</h4>
+            <ul class="list-group d-flex justify-content-start">
+              {% for offer in offers %}
+                <li class="list-group-item"><a href="{% url 'offer_detail' offer.pk %}">{{ offer.offer_title }}</a></li>
+              {% endfor %}  
+            </ul>
+          </div>
+        </div>
+      {% else %}
+        <div class="col-lg mb-4 mt-4">
+          <div class="card shadow">
+            <h4 class="card-header">Company offers</h4>
+            <div class="card-body">Nothing here yet</div>
+          </div>
+        </div>
+      {% endif %}
 
 {% endblock %}

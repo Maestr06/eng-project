@@ -55,6 +55,11 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['date_of_birth', 'photo']
+        widgets = {
+            'date_of_birth': forms.DateInput(
+                attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}
+            )
+        }
 
 class CompanyEditForm(forms.ModelForm):
 
@@ -66,7 +71,7 @@ class ApplicationForm(forms.ModelForm):
 
     class Meta:
         model = Application
-        fields = ['app_text', 'email', 'cv', 'company']
+        fields = ['app_text', 'email', 'company']
 
         widgets = {
             'company': forms.HiddenInput,

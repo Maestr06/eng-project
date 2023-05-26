@@ -1,11 +1,13 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView, ListView
+from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 from .forms import *
 import django_filters
@@ -16,9 +18,17 @@ from .filters import PostFilter
 def dashboard(request):
     filters = Filter.objects.filter(user=request.user)
     applications = Application.objects.filter(user=request.user)
+    offers = ''
+    try:
+        if request.user.company:
+            applications = Application.objects.filter(company=request.user.company)
+            offers = Offer.objects.filter(offer_company=request.user.company)
+    except ObjectDoesNotExist:
+        pass
+    
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard', 'filters': filters, 'applications': applications})
+                  {'section': 'dashboard', 'filters': filters, 'applications': applications, 'offers': offers})
 
 class UserRegistrationView(View):
 
@@ -191,7 +201,19 @@ class CompanyDetailView(DetailView):
 
     def get_context_data(self, **kwargs: any) -> dict[str, any]: 
         context = super().get_context_data(**kwargs)
+        offers = Offer.objects.filter(offer_company=self.kwargs['pk'])
         context['section'] = 'companies'
+        context['offers'] = offers
+
+        return context
+    
+class ApplicationDetailView(DetailView):
+    
+    model = Application
+
+    def get_context_data(self, **kwargs: any) -> dict[str, any]: 
+        context = super().get_context_data(**kwargs)
+        context['section'] = 'applications'
         return context
     
 class ApplicationListView(ListView):
@@ -226,7 +248,9 @@ class ApplicationAddView(View):
             application = form.save(commit=False)
             application.company = company
             application.offer = offer
-            application.user = request.user
+            if not request.user.is_anonymous:
+            # if user.is_authenticated():
+                application.user = request.user
             application.save()
             return redirect('dashboard')
         else:

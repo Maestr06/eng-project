@@ -16,6 +16,7 @@ urlpatterns = [
     path('edit/company/', CompanyEditView.as_view(), name='edit_company'),
     path('offer/<int:pk>/apply/', ApplicationAddView.as_view(), name='offer_apply'),
     path('my_applications/', ApplicationListView.as_view(), name='my_applications'),
+    path('application/<int:pk>/', ApplicationDetailView.as_view(), name='application_detail'),
     path('calculator/', CalculatorView.as_view(), name='calculator'),
     path('companies/', CompanyListView.as_view(), name='companies'),
     path('company/<int:pk>/', CompanyDetailView.as_view(), name='company_detail'),

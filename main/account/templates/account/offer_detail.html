@@ -2,10 +2,12 @@
 {% block title %}{{ object.offer_title }}{% endblock %}
 {% block content %}
 <div style="display: flex; flex-direction: column;">
-    {% if object.offer_company.logo %}
-        <img width="60px" src="{{ object.offer_company.logo.url }}" alt="file">
-    {% endif %}
-    <p>{{ object.offer_company }}</p>
+    <div class="d-flex flex-row align-items-center flex-wrap mb-2">
+        {% if object.offer_company.logo %}
+            <img width="60px" src="{{ object.offer_company.logo.url }}" alt="file">
+        {% endif %}
+        <h3 class="ms-4">{{ object.offer_company }}</h3>
+    </div>
     <h2>{{ object.offer_title }}</h2>
     <h4>Main tech:</h4>
     <strong><p>{{ object.offer_tech }}</p></strong>

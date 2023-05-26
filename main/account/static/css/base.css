@@ -129,7 +129,7 @@ input, textarea {
     clear:both;
     float:left;
     margin:0 0 10px;
-    background:#efefef;
+    background:#ffffff;
     border:0;
     padding:6px 10px;
     font-size:14px;
@@ -320,9 +320,10 @@ input.form-check-input {
     margin-right: 0.5rem;
 }
 
-/* .card {
-    box-shadow: 0 .5rem 1rem rgba(black, .15);
-} */
+.card-header {
+    color: white;
+    background-color: #23415a;
+}
 /* .card, .list-group-item {
     border-radius: 8px!important;
 } */

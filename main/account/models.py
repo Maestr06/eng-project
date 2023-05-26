@@ -108,17 +108,20 @@ class Location(models.Model):
     
     
 class Application(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     company = models.ForeignKey('Company', on_delete=models.CASCADE, blank=True)
     offer = models.ForeignKey('Offer', on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100) #combine first and last name
-    app_text = models.CharField(max_length=250, verbose_name='Application info')
+    app_text = models.TextField(max_length=10000, verbose_name='Application info')
     email = models.EmailField(max_length=100)
     cv = models.BooleanField(default=False)
     applied_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username + ' ' + self.offer.offer_title
+        if self.user:
+            return self.user.username + ' ' + self.offer.offer_title
+        else:
+            return self.offer.offer_title
     
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

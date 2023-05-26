@@ -1,6 +1,10 @@
 body {
     background-color: #ccc;
   }
+
+div.justify-content {
+  display: flex;
+}
   
   .wrapper {
     text-align: center;

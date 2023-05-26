@@ -7,19 +7,23 @@
 {% block content %}
 <div class="wrapper d-flex flex-column align-items-left shadow">
     <h3>Kalkulator wynagrodzeń</h3>
+    <div class="d-flex flex-row justify-content-center">
+        <div class="w-50"><button class="" onclick="openTab(event, 'uop')">UoP</button></div>
+        <div class="w-50"><button class="" onclick="openTab(event, 'b2b')">B2B</button></div>
+    </div>
     <div>
         <label for="value">Kwota brutto</label>
         <input type="number" id="value" min="0" />
     </div>
-    <div class="d-flex justify-content-left form-check">
+    <div id="miejsceDiv" class="justify-content-left form-check">
         <input type="checkbox" name="miejsce" id="miejsce" checked="true" class="form-check-input"/>
         <label for="miejsce" class="form-check-label">Zatrudnienie w miejscu zamieszkania?</label>
     </div>
-    <div class="d-flex justify-content-left form-check">
+    <div id="pit0Div" class=" justify-content-left form-check">
         <input type="checkbox" name="pit0" id="pit0" checked="true" class="form-check-input"/>
         <label for="pit0" class="form-check-label">Ulga dla młodych - PIT0</label>
     </div>
-    <div class="d-flex justify-content-left form-check">
+    <div id="ppkDiv" class=" justify-content-left form-check">
         <input type="checkbox" name="ppk" id="ppk" class="form-check-input"/>
         <label for="ppk" class="form-check-label">PPK</label>
     </div>
@@ -32,7 +36,7 @@
         <input type="number" name="pracodawca_proc_ppk" id="pracodawca_proc_ppk" min="1.5" max="4" step="0.01"
             value="1.5" />
     </div>
-    <div>
+    <div id="ulgaDiv">
         <label for="ulga">Kwota ulgi podatkowej</label>
         <select id="ulga">
             <option value="300">300zł</option>
@@ -40,6 +44,27 @@
             <option value="100">100zł</option>
         </select>
     </div>
+    <div id="formaDiv" class="justify-content-left" style="display:none;">
+        <label for="forma">Rodzaj opodatkowania</label>
+        <select id="forma">
+          <option value="12/32">Skala podatkowa 12%/32%</option>
+          <option value="19">Podatek liniowy 19%</option>
+          <option value="12">Ryczałt 12%</option>
+          <option value="8.5">Ryczałt 8,5%</option>
+        </select>
+      </div>
+      <div id="zusStartDiv" class="justify-content-left form-check" style="display:none;">
+        <input type="checkbox" name="zusStart" id="zusStart" class="form-check-input"/>
+        <label for="zusStart">ZUS na start</label>
+      </div>
+      <div id="zusMalyDiv" class="justify-content-left form-check" style="display:none;">
+        <input type="checkbox" name="zusMaly" id="zusMaly" class="form-check-input"/>
+        <label for="zusMaly">Mały ZUS</label>
+      </div>
+      <div id="choroboweDiv" class="justify-content-left form-check" style="display:none;">
+        <input type="checkbox" name="chorobowe" id="chorobowe" class="form-check-input"/>
+        <label for="chorobowe">Ubezpieczenie chorobowe</label>
+      </div>
     <div>
         Wynagrodzenie netto to: <span id="result">-</span>
     </div>
